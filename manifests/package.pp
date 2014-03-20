@@ -147,10 +147,17 @@ class logstash::package {
 
   if ($logstash::software_provider == 'package') {
 
-    package { $logstash::params::package:
-      ensure   => $package_ensure,
-      source   => $pkg_source,
-      provider => $pkg_provider
+    if ($pkg_provider != undef) {
+      package { $logstash::params::package:
+        ensure   => $package_ensure,
+        source   => $pkg_source,
+        provider => $pkg_provider
+      }
+    } else {
+      package { $logstash::params::package:
+        ensure   => $package_ensure,
+        source   => $pkg_source
+      }
     }
 
   } else {
