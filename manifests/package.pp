@@ -79,6 +79,8 @@ class logstash::package(
       $package_provider = undef
       if $::osfamily == 'Debian' {
         $package_require = Class['apt::update']
+      } else {
+        $package_require = undef
       }
     }
   }
